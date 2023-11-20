@@ -1,0 +1,31 @@
+.controller_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  font-size: 1.5rem;
+  background: #ff416c;
+  background: -webkit-linear-gradient(to right, #7a4b92, rgb(171, 127, 180));
+  background: linear-gradient(to right, #7a4b92, rgb(171, 127, 180));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #ffffff;
+  height: 5rem;
+
+  button {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.view_date {
+  display: flex;
+  gap: 2rem;
+}

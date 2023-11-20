@@ -7,7 +7,7 @@ export default function Home() {
         <title>Calendar & Todo List</title>
         <meta
           name="description"
-          content="This is a calendar and todo list application."
+          content="This is a calendar and todo list login page."
         />
       </Head>
       <Login />

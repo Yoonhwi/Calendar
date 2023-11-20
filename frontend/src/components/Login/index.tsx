@@ -1,13 +1,13 @@
 import Styles from "./index.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { CreateAccount } from "./CreateAccount";
+import { SignIn } from "./SignIn";
+import { SignUp } from "./SignUp";
 
 export const Login = () => {
   return (
     <div className={Styles.parent_container}>
       <div className={Styles.login_container}>
-        <CreateAccount />
+        <SignIn />
+        <SignUp />
       </div>
     </div>
   );
