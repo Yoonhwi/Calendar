@@ -11,7 +11,7 @@
   background-size: cover;
   background-position: 0 0;
   color: #ffffff;
-  height: 5rem;
+  height: 12%;
 
   button {
     color: #ffffff;
@@ -21,6 +21,9 @@
     border: none;
     &:hover {
       cursor: pointer;
+    }
+    &:active {
+      scale: 1.2;
     }
   }
 }
