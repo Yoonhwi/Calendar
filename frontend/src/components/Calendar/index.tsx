@@ -13,7 +13,7 @@ export const Calendar = () => {
       <CalendarController date={nowDate} setDate={setNowDate} />
       <div className={Styles.date_container}>
         <CalendarDayHead />
-        <CalendarDate date={nowDate} />
+        <CalendarDate date={nowDate} clicked={onDate} set={setOnDate} />
       </div>
     </div>
   );

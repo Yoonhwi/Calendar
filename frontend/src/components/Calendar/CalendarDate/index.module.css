@@ -27,10 +27,25 @@
   background-color: #b082c6;
   color: #fff;
   height: 100%;
+  transition: none;
 }
 
 .date:active {
   transform: scale(1.05);
+}
+
+.clicked_date {
+  color: #fff;
+  background-color: #42095c;
+  font-weight: 800;
+  font-size: 1.2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-sizing: border-box;
+  height: 100%;
 }
 
 .none_date {

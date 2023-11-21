@@ -20,7 +20,5 @@ export const addDays = ({ days, firstDay, arr }: AddDaysProps) => {
     arr.push(null);
   }
 
-  console.log(arr.length);
-
   return arr;
 };

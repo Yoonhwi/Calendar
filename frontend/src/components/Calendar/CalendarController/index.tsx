@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Styles from "./index.module.scss";
 
 interface CalendarControllerProps {
