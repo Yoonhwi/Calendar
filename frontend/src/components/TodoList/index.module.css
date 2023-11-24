@@ -1,0 +1,6 @@
+.todolist_container {
+  border: 2px solid #b652b6;
+  border-radius: 8px;
+  min-height: 45rem;
+  background-color: antiquewhite;
+}
