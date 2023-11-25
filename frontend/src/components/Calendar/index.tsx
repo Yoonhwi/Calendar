@@ -31,13 +31,16 @@ export const Calendar = () => {
 
   return (
     <div>
-      <div className={Styles.calendar_container} style={containerStyle.style}>
+      <section
+        className={Styles.calendar_container}
+        style={containerStyle.style}
+      >
         <CalendarController date={nowDate} setDate={setNowDate} />
         <div className={Styles.date_container}>
           <CalendarDayHead />
           <CalendarDate date={nowDate} clicked={onDate} set={setOnDate} />
         </div>
-      </div>
+      </section>
       {containerStyle.type ? (
         <CSSTransition
           in={isShowTodo}
@@ -71,6 +74,7 @@ export const Calendar = () => {
             setNowDate={setNowDate}
             setOnDate={setOnDate}
             setIsShowTodo={setIsShowTodo}
+            clickedDate={onDate}
           />
         </CSSTransition>
       ) : null}

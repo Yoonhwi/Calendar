@@ -5,7 +5,7 @@ export const SignIn = () => {
   return (
     <div className={Styles.signin_container}>
       <form className={Styles.form_container}>
-        <h1>Create Account</h1>
+        <h1>Join Calendar!</h1>
         <div className={Styles.social_container}>
           <a>
             <FontAwesomeIcon
