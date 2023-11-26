@@ -1,7 +1,7 @@
 import Styles from "./index.module.css";
 
 export const Pagination = () => {
-  const length = 6;
+  const length = 2;
   const arr = [];
 
   for (let i = 1; i <= length; i++) {
