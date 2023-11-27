@@ -8,14 +8,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  input {
-    background-color: #ffffff;
-    border: none;
-    padding: 1.2rem 1.5rem;
-    margin: 0.5rem;
-    width: 60%;
-    outline: none;
-  }
 }
 
 .btn {
@@ -29,31 +21,51 @@
   border-style: solid;
 }
 
-.social_container {
+.form_container {
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+}
+
+.input_nonebtn {
+  width: 100%;
+  margin: 0.5rem;
+  background-color: #ffffff;
+  border: none;
+  padding: 1.2rem 1.5rem;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .input_flex {
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   input {
-    width: 40%;
+    width: 70%;
     margin: 0.5rem 0;
+    box-sizing: border-box;
+    outline: none;
+    padding: 1.2rem 1.5rem;
+    background-color: #ffffff;
+    border: none;
+    height: 3rem;
   }
+
   button {
-    width: 19%;
+    width: 28%;
     border: 2px solid #ffffff;
     background-color: #ff416c;
     color: #ffffff;
-    padding: 0.75rem 0.7rem;
-    margin-left: 1%;
+    margin-left: 2%;
     font-size: 1.2rem;
     font-weight: bold;
+    white-space: nowrap;
+    height: 3rem;
+    text-align: center;
+    line-height: 3rem;
   }
 }
 

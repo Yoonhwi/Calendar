@@ -4,6 +4,7 @@ import { connectDB } from "./core/db";
 import mysql from "mysql2/promise";
 import { userRoutes } from "./routes/user";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ const PORT = 8000;
 connectDB((pool) => {
   console.log("DB Connected");
   const app = express();
+
+  app.use(bodyParser.json());
 
   app.use(
     cors({
