@@ -14,5 +14,4 @@ React-Query의 다양한 기능을 활용하여<br/>
 
 SEO의 향상을 위해 title , meta 태그 추가.<br/>
 https 도입.<br/>
-회원가입 시 휴대폰인증 추가.<br/>
 로그인인증 JWT방식 사용.<br/><br/>
