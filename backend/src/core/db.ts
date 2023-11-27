@@ -1,12 +1,5 @@
 import mysql, { Pool } from "mysql2/promise";
-
-const DB_OPTIONS: mysql.PoolOptions = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  connectionLimit: 30,
-};
+import { DB_OPTIONS } from "..";
 
 export const connectDB = async (cb: (connection: Pool) => void) => {
   const pool = mysql.createPool(DB_OPTIONS);

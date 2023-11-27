@@ -11,33 +11,20 @@
   color: #ffffff;
 }
 
-.signup_content {
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.transition_enter {
+  opacity: 0;
 }
 
-.signup_btn {
-  border-radius: 20px;
-  background-color: transparent;
-  border-color: #ffffff;
-  color: #ffffff;
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 1.2rem 4.5rem;
-  border-style: solid;
+.transition_enter_active {
+  opacity: 1;
+  transition: opacity 500ms ease;
 }
 
-.signup_btn:active {
-  transform: scale(0.95);
+.transition_exit {
+  opacity: 1;
 }
 
-.signup_btn:focus {
-  outline: none;
+.transition_exit_active {
+  opacity: 0;
+  transition: opacity 500ms ease;
 }
