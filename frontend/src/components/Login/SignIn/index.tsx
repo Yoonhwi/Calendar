@@ -14,17 +14,13 @@ export const SignIn = () => {
     [user]
   );
 
-  const handlerSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const response = useQuery({
-      queryKey: ["/user/login", "login"],
-      queryFn: () =>
-        DefaultAxiosService.instance.get("/user/login", {
-          params: user,
-        }),
-    });
-    console.log(response);
-  };
+  const handlerSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      await DefaultAxiosService.instance.get("/user/login", { params: user });
+    },
+    [user]
+  );
 
   return (
     <div className={Styles.signin_container}>
