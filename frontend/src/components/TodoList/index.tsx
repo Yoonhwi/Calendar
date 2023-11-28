@@ -1,6 +1,7 @@
 import { Divier } from "../Divider";
 import { Pagination } from "../Pagination";
 import Styles from "./index.module.scss";
+import React from "react";
 
 interface TodoListProps {
   style: React.CSSProperties;
@@ -10,7 +11,47 @@ interface TodoListProps {
   setIsShowTodo: React.Dispatch<React.SetStateAction<boolean>>;
   clickedDate: Date | undefined;
 }
-export const TodoList = ({
+
+const DATA = [
+  {
+    id: 1,
+    content: "content",
+    date: "11/16/2023",
+    writer: 1,
+  },
+  {
+    id: 2,
+    content: "content",
+    date: "11/16/2023",
+    writer: 1,
+  },
+  {
+    id: 3,
+    content: "content",
+    date: "11/16/2023",
+    writer: 1,
+  },
+  {
+    id: 4,
+    content: "content",
+    date: "11/16/2023",
+    writer: 1,
+  },
+  {
+    id: 5,
+    content: "content",
+    date: "11/16/2023",
+    writer: 1,
+  },
+  {
+    id: 6,
+    content: "content",
+    date: "11/16/2023",
+    writer: 1,
+  },
+];
+
+const TodoList = ({
   style,
   setMode,
   setNowDate,
@@ -24,44 +65,7 @@ export const TodoList = ({
     day: "numeric",
   });
   console.log(numericDate);
-  const DATA = [
-    {
-      id: 1,
-      content: "content",
-      date: "11/16/2023",
-      writer: 1,
-    },
-    {
-      id: 2,
-      content: "content",
-      date: "11/16/2023",
-      writer: 1,
-    },
-    {
-      id: 3,
-      content: "content",
-      date: "11/16/2023",
-      writer: 1,
-    },
-    {
-      id: 4,
-      content: "content",
-      date: "11/16/2023",
-      writer: 1,
-    },
-    {
-      id: 5,
-      content: "content",
-      date: "11/16/2023",
-      writer: 1,
-    },
-    {
-      id: 6,
-      content: "content",
-      date: "11/16/2023",
-      writer: 1,
-    },
-  ];
+
   return (
     <section style={style} className={Styles.todolist_container}>
       <div className={Styles.todo_header}>Enter your daily schedule!</div>
@@ -91,3 +95,5 @@ export const TodoList = ({
     </section>
   );
 };
+
+export default React.memo(TodoList);

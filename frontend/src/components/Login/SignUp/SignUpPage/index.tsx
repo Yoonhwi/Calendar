@@ -2,7 +2,7 @@ import Styles from "./index.module.scss";
 import { SocialLoginIcons } from "@/components/SocialLoginIcons";
 import DefaultAxiosService from "@/service/DefaultAxiosService";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 interface SignUpPageProp {
   setMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -30,22 +30,30 @@ export const SignUpPage = ({ setMode }: SignUpPageProp) => {
 
   const router = useRouter();
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setCreateUser({ ...createUser, [e.target.id]: e.target.value });
-  };
+  const onChangeInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      setCreateUser({ ...createUser, [e.target.id]: e.target.value });
+    },
+    [createUser]
+  );
 
-  const handlerSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isPassword) setMessage("비밀번호가 일치하지 않습니다.");
-    else {
-      setMessage("");
-      await DefaultAxiosService.instance.post(`/user`, createUser).then(() => {
-        router.push("/todo");
-      });
-    }
-    //계정생성 완료시 로그인처리 해주고 todo 페이지로 이동
-  };
+  const handlerSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!isPassword) setMessage("비밀번호가 일치하지 않습니다.");
+      else {
+        setMessage("");
+        await DefaultAxiosService.instance
+          .post(`/user`, createUser)
+          .then(() => {
+            router.push("/todo");
+          });
+      }
+      //계정생성 완료시 로그인처리 해주고 todo 페이지로 이동
+    },
+    [createUser, isPassword, router]
+  );
 
   return (
     <div className={Styles.container}>

@@ -4,7 +4,7 @@ import { CalendarDate } from "./CalendarDate";
 import Styles from "./index.module.css";
 import { CalendarDayHead } from "./CalendarDayHead";
 import { useGetWidth } from "@/hooks/useGetWidth";
-import { TodoList } from "../TodoList";
+import TodoList from "../TodoList";
 
 const { CSSTransition } = require("react-transition-group");
 

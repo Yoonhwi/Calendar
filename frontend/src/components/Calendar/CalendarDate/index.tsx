@@ -19,7 +19,7 @@ export const CalendarDate = ({ date, set, clicked }: CalendarDateProp) => {
   const lastDayOfCurrentMonth = new Date(nowYear, nowMonth + 1, 0); //총일수를 위해 다음달의 첫째 날의 전날을 구함.
   const totalDays = lastDayOfCurrentMonth.getDate(); //총일수
 
-  const clikedDayHandler = (day: number) => {
+  const handlerClickDay = (day: number) => {
     set(() => {
       return new Date(nowYear, nowMonth, day);
     });
@@ -48,7 +48,7 @@ export const CalendarDate = ({ date, set, clicked }: CalendarDateProp) => {
                   ? Styles.clicked_date
                   : Styles.date
               }
-              onClick={() => clikedDayHandler(v)}
+              onClick={() => handlerClickDay(v)}
             >
               {v}
             </div>
