@@ -13,10 +13,12 @@ export const userRoutes = (app: Express, conn: Pool) => {
   });
 
   app.get("/user/login", async (req, res) => {
+    console.log(req.body);
     if (!req.body || isIncludeUndefined(req.query)) return;
     const { email, password } = req.query;
     const response = await login(conn, { email, password });
     if (response.data === "login success") {
+      console.log("1");
       res.status(200).json(response);
     }
   });

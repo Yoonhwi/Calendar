@@ -1,11 +1,17 @@
 import Styles from "./index.module.scss";
-import axios from "axios";
 import { SocialLoginIcons } from "@/components/SocialLoginIcons";
-import { useCallback, useState } from "react";
-import DefaultAxiosService from "@/service/DefaultAxiosService";
-import { useQuery } from "@tanstack/react-query";
+import { useCallback, useEffect, useState } from "react";
+import { getFetch, useGet } from "@/api/apis";
+import { ApiRoutes } from "@/constans/routes";
+
 export const SignIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
+
+  const { data, refetch } = useGet({
+    url: ApiRoutes.UserLogin,
+    fn: () => getFetch({ url: ApiRoutes.UserLogin, params: user }),
+    params: user,
+  });
 
   const handlerOnChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,13 +20,17 @@ export const SignIn = () => {
     [user]
   );
 
-  const handlerSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      await DefaultAxiosService.instance.get("/user/login", { params: user });
-    },
-    [user]
-  );
+  const handlerSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    refetch();
+    !data && console.log("로그인 실패");
+  };
+
+  useEffect(() => {
+    if (data) {
+      console.log("로그인처리");
+    }
+  }, [data]);
 
   return (
     <div className={Styles.signin_container}>
