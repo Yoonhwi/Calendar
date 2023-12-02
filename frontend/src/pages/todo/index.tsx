@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Styles from "./index.module.css";
 import { Calendar } from "@/components/Calendar";
+import DefaultLayout from "@/layouts/DefaultLayout";
 
 const TodoPage = () => {
   return (

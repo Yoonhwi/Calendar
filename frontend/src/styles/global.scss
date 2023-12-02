@@ -1,0 +1,23 @@
+@import "src/styles/mixin.module.scss";
+
+html {
+  @include breakpoint(mobile) {
+    font-size: 12px;
+  }
+  @include breakpoint(small) {
+    font-size: 13px;
+  }
+  @include breakpoint(medium) {
+    font-size: 14px;
+  }
+  @include breakpoint(large) {
+    font-size: 16px;
+  }
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  box-sizing: border-box;
+}

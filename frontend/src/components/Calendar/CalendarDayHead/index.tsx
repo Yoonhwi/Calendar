@@ -1,5 +1,5 @@
 import Styles from "./index.module.css";
-import { DAYS } from "@/constans/day";
+import { DAYS } from "@/constants/day";
 
 export const CalendarDayHead = () => {
   return (

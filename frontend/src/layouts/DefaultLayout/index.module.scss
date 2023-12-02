@@ -1,0 +1,8 @@
+@import "src/styles/mixin.module.scss";
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+}

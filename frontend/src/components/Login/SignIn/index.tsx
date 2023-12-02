@@ -2,7 +2,7 @@ import Styles from "./index.module.scss";
 import { SocialLoginIcons } from "@/components/SocialLoginIcons";
 import { useCallback, useEffect, useState } from "react";
 import { getFetch, useGet } from "@/api/apis";
-import { ApiRoutes } from "@/constans/routes";
+import { ApiRoutes } from "@/constants/routes";
 
 export const SignIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });

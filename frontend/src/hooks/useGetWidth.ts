@@ -14,7 +14,7 @@ export const useGetWidth = (mode: boolean) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getWidth = useMemo(() => {
+  const width = useMemo(() => {
     const mobileStyle = {
       height: "25rem",
       top: "15rem",
@@ -23,7 +23,7 @@ export const useGetWidth = (mode: boolean) => {
 
     const style = {
       height: "25rem",
-      top: "15rem",
+      top: "20rem",
       left: "29.2%",
     };
 
@@ -36,5 +36,5 @@ export const useGetWidth = (mode: boolean) => {
     }
   }, [mode, windowWidth]);
 
-  return getWidth;
+  return width;
 };

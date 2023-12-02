@@ -1,0 +1,28 @@
+@import "src/styles/mixin.module.scss";
+
+.parent_container {
+  height: 100%;
+  @include center();
+  padding-bottom: 6rem;
+}
+
+.login_container {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.25);
+  height: 40rem;
+  display: flex;
+  @include breakpoint(mobile) {
+    width: 40rem;
+  }
+  @include breakpoint(small) {
+    width: 50rem;
+  }
+  @include breakpoint(medium) {
+    width: 55rem;
+  }
+  @include breakpoint(large) {
+    width: 65rem;
+  }
+  transition: width 0.3s ease-in-out;
+}

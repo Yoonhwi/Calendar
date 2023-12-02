@@ -1,4 +1,5 @@
 import { Login } from "@/components/Login";
+import DefaultLayout from "@/layouts/DefaultLayout";
 import Head from "next/head";
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
           content="This is a calendar and todo list login page."
         />
       </Head>
-      <Login />
+      <DefaultLayout>
+        <Login />
+      </DefaultLayout>
     </>
   );
 }

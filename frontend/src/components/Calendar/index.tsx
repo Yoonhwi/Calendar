@@ -56,7 +56,7 @@ export const Calendar = () => {
               containerStyle.type === "web"
                 ? {
                     position: "absolute",
-                    top: "2.5rem",
+                    top: "7.5rem",
                     left: "41%",
                     width: "40%",
                   }
