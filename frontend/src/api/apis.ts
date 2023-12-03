@@ -18,9 +18,17 @@ export const getFetch = ({ url, params }: GetFetchProps) => {
   });
 };
 
-export const useGet = ({ url, fn, params }: UseFetchProps) => {
+export const useGetWithParams = ({ url, fn, params }: UseFetchProps) => {
   return useQuery({
     queryKey: [url, params],
+    queryFn: fn,
+    enabled: false,
+  });
+};
+
+export const useGet = ({ url, fn }: UseFetchProps) => {
+  return useQuery({
+    queryKey: [url],
     queryFn: fn,
     enabled: false,
   });

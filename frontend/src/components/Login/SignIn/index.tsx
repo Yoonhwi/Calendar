@@ -1,13 +1,13 @@
 import Styles from "./index.module.scss";
 import { SocialLoginIcons } from "@/components/SocialLoginIcons";
 import { useCallback, useEffect, useState } from "react";
-import { getFetch, useGet } from "@/api/apis";
+import { getFetch, useGetWithParams } from "@/api/apis";
 import { ApiRoutes } from "@/constants/routes";
 
 export const SignIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
 
-  const { data, refetch } = useGet({
+  const { data, refetch } = useGetWithParams({
     url: ApiRoutes.UserLogin,
     fn: () => getFetch({ url: ApiRoutes.UserLogin, params: user }),
     params: user,
@@ -28,7 +28,6 @@ export const SignIn = () => {
 
   useEffect(() => {
     if (data) {
-      console.log("로그인처리");
     }
   }, [data]);
 

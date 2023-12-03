@@ -13,7 +13,9 @@ const TodoPage = () => {
           content="This is a calendar and todo list application."
         />
       </Head>
-      <Calendar />
+      <DefaultLayout>
+        <Calendar />
+      </DefaultLayout>
     </div>
   );
 };
