@@ -5,6 +5,8 @@ import mysql from "mysql2/promise";
 import { userRoutes } from "./routes/user";
 import cors from "cors";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import { tokenRoutes } from "./routes/token";
 
 dotenv.config();
 
@@ -23,6 +25,7 @@ connectDB((pool) => {
   const app = express();
 
   app.use(bodyParser.json());
+  app.use(cookieParser());
 
   app.use(
     cors({
@@ -32,6 +35,7 @@ connectDB((pool) => {
   );
 
   userRoutes(app, pool);
+  tokenRoutes(app, pool);
 
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

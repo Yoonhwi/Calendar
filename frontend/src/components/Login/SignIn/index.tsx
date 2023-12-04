@@ -3,9 +3,12 @@ import { SocialLoginIcons } from "@/components/SocialLoginIcons";
 import { useCallback, useEffect, useState } from "react";
 import { getFetch, useGetWithParams } from "@/api/apis";
 import { ApiRoutes } from "@/constants/routes";
+import { useRouter } from "next/router";
 
 export const SignIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
+
+  const router = useRouter();
 
   const { data, refetch } = useGetWithParams({
     url: ApiRoutes.UserLogin,
@@ -24,6 +27,7 @@ export const SignIn = () => {
     e.preventDefault();
     refetch();
     !data && console.log("로그인 실패");
+    router.push("/todo");
   };
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import DefaultAxiosService from "@/service/DefaultAxiosService";
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
 
 interface UseFetchProps {
   params?: object;
@@ -12,10 +12,17 @@ interface GetFetchProps {
   params?: object;
 }
 
+interface ResponseDataType {
+  data: string | undefined;
+  message: string;
+}
+
 export const getFetch = ({ url, params }: GetFetchProps) => {
-  return DefaultAxiosService.instance.get(url, {
-    params,
-  });
+  return DefaultAxiosService.instance
+    .get(url, {
+      params,
+    })
+    .then((res) => res.data);
 };
 
 export const useGetWithParams = ({ url, fn, params }: UseFetchProps) => {
@@ -26,10 +33,14 @@ export const useGetWithParams = ({ url, fn, params }: UseFetchProps) => {
   });
 };
 
-export const useGet = ({ url, fn }: UseFetchProps) => {
+export const useGet = ({
+  url,
+  fn,
+}: UseFetchProps): UseQueryResult<ResponseDataType> => {
   return useQuery({
     queryKey: [url],
     queryFn: fn,
-    enabled: false,
+    staleTime: 1000 * 10,
+    retry: 1,
   });
 };
