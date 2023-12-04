@@ -1,10 +1,15 @@
 import DefaultAxiosService from "@/service/DefaultAxiosService";
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import {
+  UseQueryOptions,
+  UseQueryResult,
+  useQuery,
+} from "@tanstack/react-query";
 
 interface UseFetchProps {
   params?: object;
   url: string;
   fn: () => void;
+  enabled?: boolean;
 }
 
 interface GetFetchProps {
@@ -36,11 +41,12 @@ export const useGetWithParams = ({ url, fn, params }: UseFetchProps) => {
 export const useGet = ({
   url,
   fn,
+  enabled,
 }: UseFetchProps): UseQueryResult<ResponseDataType> => {
   return useQuery({
     queryKey: [url],
     queryFn: fn,
-    staleTime: 1000 * 10,
-    retry: 1,
+    retry: false,
+    enabled: enabled,
   });
 };

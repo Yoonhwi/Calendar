@@ -1,7 +1,7 @@
 import Styles from "./index.module.scss";
 import { SocialLoginIcons } from "@/components/SocialLoginIcons";
 import { useCallback, useEffect, useState } from "react";
-import { getFetch, useGetWithParams } from "@/api/apis";
+import { getFetch, useGet, useGetWithParams } from "@/api/apis";
 import { ApiRoutes } from "@/constants/routes";
 import { useRouter } from "next/router";
 
@@ -16,6 +16,11 @@ export const SignIn = () => {
     params: user,
   });
 
+  const { data: userData, refetch: refetchUserData } = useGet({
+    url: ApiRoutes.Token,
+    fn: () => getFetch({ url: ApiRoutes.Token }),
+  });
+
   const handlerOnChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setUser({ ...user, [e.target.id]: e.target.value });
@@ -23,17 +28,24 @@ export const SignIn = () => {
     [user]
   );
 
-  const handlerSubmit = (e: React.FormEvent) => {
+  const handlerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    refetch();
+    await refetch();
     !data && console.log("로그인 실패");
-    router.push("/todo");
+    await refetchUserData();
   };
 
   useEffect(() => {
-    if (data) {
-    }
-  }, [data]);
+    const handleRedirect = async () => {
+      console.log(userData);
+      if (!!userData) {
+        console.log(userData);
+        await router.push("/todo");
+      }
+    };
+
+    handleRedirect();
+  }, [router, userData]);
 
   return (
     <div className={Styles.signin_container}>

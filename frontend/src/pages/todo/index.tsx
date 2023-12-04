@@ -2,8 +2,19 @@ import Head from "next/head";
 import Styles from "./index.module.css";
 import { Calendar } from "@/components/Calendar";
 import DefaultLayout from "@/layouts/DefaultLayout";
+import { getFetch, useGet } from "@/api/apis";
+import { ApiRoutes } from "@/constants/routes";
+import { useRouter } from "next/router";
 
 const TodoPage = () => {
+  const { refetch } = useGet({
+    url: ApiRoutes.Logout,
+    fn: () => getFetch({ url: ApiRoutes.Logout }),
+    enabled: false,
+  });
+
+  const router = useRouter();
+
   return (
     <div className={Styles.todo_container}>
       <Head>
@@ -13,6 +24,12 @@ const TodoPage = () => {
           content="This is a calendar and todo list application."
         />
       </Head>
+      <button
+        className={Styles.logout_btn}
+        onClick={() => refetch().then(() => router.push("/"))}
+      >
+        logout
+      </button>
       <DefaultLayout>
         <Calendar />
       </DefaultLayout>

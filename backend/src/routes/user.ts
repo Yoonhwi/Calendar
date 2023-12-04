@@ -33,4 +33,11 @@ export const userRoutes = (app: Express, conn: Pool) => {
       res.status(200).json(response);
     }
   });
+
+  app.get("/logout", async (req, res) => {
+    console.log("logout");
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.status(200).json({ message: "logout success" });
+  });
 };
