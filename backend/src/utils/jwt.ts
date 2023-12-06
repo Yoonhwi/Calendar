@@ -1,16 +1,16 @@
 import { HmacSHA256 } from "crypto-js";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-export const getAccessToken = (id: string) => {
-  const token = jwt.sign({ id }, process.env.SECRET_KEY!, {
+export const getAccessToken = (email: string, id: number) => {
+  const token = jwt.sign({ email, id }, process.env.SECRET_KEY!, {
     algorithm: "HS256",
     expiresIn: "1h",
   });
   return token;
 };
 
-export const getRefreshToken = (id: string) => {
-  const token = jwt.sign({ id }, process.env.SECRET_KEY!, {
+export const getRefreshToken = (email: string, id: number) => {
+  const token = jwt.sign({ email, id }, process.env.SECRET_KEY!, {
     algorithm: "HS256",
     expiresIn: "1d",
   });

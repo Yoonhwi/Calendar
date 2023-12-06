@@ -1,15 +1,21 @@
+import { ApiRoutes } from "@/constants/routes";
 import { Divier } from "../Divider";
 import { Pagination } from "../Pagination";
 import Styles from "./index.module.scss";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { getFetch, useGet } from "@/api/apis";
+import { UseQueryResult } from "@tanstack/react-query";
 
 interface TodoListProps {
   style: React.CSSProperties;
-  setMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setNowDate: React.Dispatch<React.SetStateAction<Date>>;
-  setOnDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-  setIsShowTodo: React.Dispatch<React.SetStateAction<boolean>>;
   clickedDate: Date | undefined;
+}
+
+interface ApiResponse {
+  id: number;
+  email: string;
+  iat: number;
+  exp: number;
 }
 
 const DATA = [
@@ -51,19 +57,32 @@ const DATA = [
   },
 ];
 
-const TodoList = ({
-  style,
-  setMode,
-  setNowDate,
-  setOnDate,
-  setIsShowTodo,
-  clickedDate,
-}: TodoListProps) => {
+const TodoList = ({ style, clickedDate }: TodoListProps) => {
+  const [inputTodoList, setInputTodoList] = useState("");
+  const [userData, setUserData] = useState({
+    email: "",
+    id: 0,
+  });
+
+  const { data } = useGet({
+    //user 정보
+    url: ApiRoutes.Token,
+    fn: () => getFetch({ url: ApiRoutes.Token }),
+    options: { enabled: true },
+  });
+
+  useEffect(() => {
+    if (!data) return;
+    const dataExtendId = data?.data as ApiResponse;
+    setUserData({ email: dataExtendId.email, id: dataExtendId.id });
+  }, [data]);
+  //writer = userData.id , text = inputTodoList, date = clickedDate
   const numericDate = clickedDate?.toLocaleDateString("en-US", {
     year: "numeric",
     month: "numeric",
     day: "numeric",
   });
+
   console.log(numericDate);
 
   return (
@@ -75,9 +94,10 @@ const TodoList = ({
             placeholder="What is your to-do?"
             className={Styles.input_field}
             maxLength={20}
+            onChange={(e) => setInputTodoList(e.target.value)}
           />
         </div>
-        <button>✔</button>
+        <button onClick={() => console.log(inputTodoList)}>✔</button>
       </div>
       <Divier style={{ color: "#fff", width: "95%", height: "2rem" }} />
       <div className={Styles.list_container}>
@@ -87,6 +107,7 @@ const TodoList = ({
               <div className={Styles.list_content}>content</div>
               <button>✏️</button>
               <button>🗑️</button>
+              <input type="checkbox" checked={true} />
             </div>
           );
         })}

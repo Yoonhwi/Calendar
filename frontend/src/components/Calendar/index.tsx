@@ -70,10 +70,6 @@ export const Calendar = () => {
                   }
                 : {}
             }
-            setMode={setMode}
-            setNowDate={setNowDate}
-            setOnDate={setOnDate}
-            setIsShowTodo={setIsShowTodo}
             clickedDate={onDate}
           />
         </CSSTransition>

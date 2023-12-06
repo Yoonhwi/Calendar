@@ -1,7 +1,9 @@
 import DefaultAxiosService from "@/service/DefaultAxiosService";
 import {
+  UseMutationOptions,
   UseQueryOptions,
   UseQueryResult,
+  useMutation,
   useQuery,
 } from "@tanstack/react-query";
 
@@ -9,7 +11,7 @@ interface UseFetchProps {
   params?: object;
   url: string;
   fn: () => void;
-  enabled?: boolean;
+  options?: UseQueryOptions;
 }
 
 interface GetFetchProps {
@@ -18,7 +20,7 @@ interface GetFetchProps {
 }
 
 interface ResponseDataType {
-  data: string | undefined;
+  data: string | undefined | object;
   message: string;
 }
 
@@ -41,12 +43,23 @@ export const useGetWithParams = ({ url, fn, params }: UseFetchProps) => {
 export const useGet = ({
   url,
   fn,
-  enabled,
+  options,
 }: UseFetchProps): UseQueryResult<ResponseDataType> => {
   return useQuery({
     queryKey: [url],
     queryFn: fn,
-    retry: false,
-    enabled: enabled,
+    options,
+  });
+};
+
+export const usePost = (
+  url: string,
+  params?: object,
+  options?: UseMutationOptions
+) => {
+  useMutation({
+    mutationFn: () => {
+      return DefaultAxiosService.instance.post(url, { params });
+    },
   });
 };

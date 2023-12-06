@@ -45,22 +45,21 @@ export const login: QueriesFunctionWithBody<LoginProps> = async (
   const { email, password } = params;
   try {
     const getSalt = await conn.execute(
-      "SELECT salt,login_password FROM user WHERE login_id = ?",
+      "SELECT salt,login_password,id FROM user WHERE login_id = ?",
       [email]
     );
 
     if ((getSalt[0] as RowDataPacket[]).length) {
-      const salt = (getSalt[0] as RowDataPacket[])[0].salt;
-      const login_password = (getSalt[0] as RowDataPacket[])[0].login_password;
+      const { salt, login_password, id } = (getSalt[0] as RowDataPacket[])[0];
       const encodedPassword = encode({ pw: password, salt });
 
       if (login_password === encodedPassword) {
-        return makeSuccessResponse("login success");
+        return makeSuccessResponse({ message: "login success", id });
       } else {
-        return makeSuccessResponse("not match");
+        return makeSuccessResponse({ message: "not match" });
       }
     } else {
-      return makeSuccessResponse("none email");
+      return makeSuccessResponse({ message: "none email" });
     }
   } catch {
     return DB_QUERY_ERROR;
