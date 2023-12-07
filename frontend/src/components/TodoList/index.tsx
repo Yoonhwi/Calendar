@@ -64,12 +64,13 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
     id: 0,
   });
 
-  const { data } = useGet({
+  const { data } = useGet(
     //user 정보
-    url: ApiRoutes.Token,
-    fn: () => getFetch({ url: ApiRoutes.Token }),
-    options: { enabled: true },
-  });
+    ApiRoutes.Token,
+    () => getFetch({ url: ApiRoutes.Token }),
+    { enabled: true }
+  );
+  console.log(data);
 
   useEffect(() => {
     if (!data) return;
@@ -77,6 +78,7 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
     setUserData({ email: dataExtendId.email, id: dataExtendId.id });
   }, [data]);
   //writer = userData.id , text = inputTodoList, date = clickedDate
+
   const numericDate = clickedDate?.toLocaleDateString("en-US", {
     year: "numeric",
     month: "numeric",

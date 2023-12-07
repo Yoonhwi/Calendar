@@ -7,6 +7,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { tokenRoutes } from "./routes/token";
+import { todoRoutes } from "./routes/todo copy";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ connectDB((pool) => {
 
   userRoutes(app, pool);
   tokenRoutes(app, pool);
+  todoRoutes(app, pool);
 
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

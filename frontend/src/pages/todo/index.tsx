@@ -7,11 +7,9 @@ import { ApiRoutes } from "@/constants/routes";
 import { useRouter } from "next/router";
 
 const TodoPage = () => {
-  const { refetch } = useGet({
-    url: ApiRoutes.Logout,
-    fn: () => getFetch({ url: ApiRoutes.Logout }),
-    enabled: false,
-  });
+  const { refetch } = useGet(ApiRoutes.Logout, () =>
+    getFetch({ url: ApiRoutes.Logout })
+  );
 
   const router = useRouter();
 

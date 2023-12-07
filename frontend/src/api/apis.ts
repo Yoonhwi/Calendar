@@ -1,5 +1,6 @@
 import DefaultAxiosService from "@/service/DefaultAxiosService";
 import {
+  QueryFunctionContext,
   UseMutationOptions,
   UseQueryOptions,
   UseQueryResult,
@@ -7,11 +8,18 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 
-interface UseFetchProps {
-  params?: object;
-  url: string;
-  fn: () => void;
-  options?: UseQueryOptions;
+interface queryOptions {
+  enabled?: boolean;
+  refetchOnMount?: boolean;
+  refetchOnReconnect?: boolean;
+  retry?: boolean;
+  retryDelay?: number;
+  staleTime?: number;
+  cacheTime?: number;
+  refetchOnWindowFocus?: boolean | "always";
+  onError?: (err: any) => void;
+  onSuccess?: (data: any) => void;
+  onSettled?: (data: any, error: any) => void;
 }
 
 interface GetFetchProps {
@@ -32,23 +40,33 @@ export const getFetch = ({ url, params }: GetFetchProps) => {
     .then((res) => res.data);
 };
 
-export const useGetWithParams = ({ url, fn, params }: UseFetchProps) => {
+export const useGetWithParams = <T extends unknown>(
+  url: string,
+  fn: (context: QueryFunctionContext) => Promise<T>,
+  params: object,
+  options?: queryOptions
+) => {
   return useQuery({
     queryKey: [url, params],
     queryFn: fn,
     enabled: false,
+    retry: false,
+    ...options,
   });
 };
 
-export const useGet = ({
-  url,
-  fn,
-  options,
-}: UseFetchProps): UseQueryResult<ResponseDataType> => {
+export const useGet = (
+  url: string,
+  fn: () => void,
+  options?: queryOptions
+): UseQueryResult<ResponseDataType> => {
   return useQuery({
     queryKey: [url],
     queryFn: fn,
-    options,
+    retry: false,
+    staleTime: 1000 * 10,
+    enabled: false,
+    ...options,
   });
 };
 

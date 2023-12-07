@@ -8,11 +8,9 @@ interface DefaultLayoutProps {
 }
 
 const DefaultLayout = ({ children }: DefaultLayoutProps) => {
-  const { data } = useGet({
-    url: ApiRoutes.Token,
-    fn: () => getFetch({ url: ApiRoutes.Token }),
-  });
-
+  const { data } = useGet(ApiRoutes.Token, () =>
+    getFetch({ url: ApiRoutes.Token })
+  );
   useEffect(() => {
     if (!data) return;
     if (!!data.data) {
