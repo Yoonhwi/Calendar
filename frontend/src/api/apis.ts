@@ -65,7 +65,6 @@ export const useGet = (
     queryKey: [url],
     queryFn: fn,
     retry: false,
-    staleTime: 1000 * 10,
     enabled: false,
     ...options,
   });

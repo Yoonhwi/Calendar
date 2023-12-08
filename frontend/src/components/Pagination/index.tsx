@@ -1,24 +1,31 @@
 import Styles from "./index.module.css";
+import { useState } from "react";
 
-export const Pagination = () => {
-  const length = 2;
-  const arr = [];
+interface PaginationProps {
+  count: any;
+  set: React.Dispatch<React.SetStateAction<number>>;
+}
 
-  for (let i = 1; i <= length; i++) {
-    arr.push(i);
+export const Pagination = ({ count, set }: PaginationProps) => {
+  let pageNum = 0;
+  //총 카운트가 오는거라 page별로 나눠줘야함
+  count / 6 < 1 ? (pageNum = 1) : (pageNum = Math.ceil(count / 6));
+
+  let pageArr = [];
+  for (let i = 1; i <= pageNum; i++) {
+    pageArr.push(i);
   }
-
   return (
-    <div>
-      {length > 1 ? (
-        <div className={Styles.page_container}>
-          <span>{"<"}</span>
-          {arr.map((v) => {
-            return <span key={v}>{v}</span>;
-          })}
-          <span>{">"}</span>
-        </div>
-      ) : null}
+    <div className={Styles.page_container}>
+      <span>{"<"}</span>
+      {pageArr.map((v) => {
+        return (
+          <span key={v} onClick={() => set(v)}>
+            {v}
+          </span>
+        );
+      })}
+      <span>{">"}</span>
     </div>
   );
 };

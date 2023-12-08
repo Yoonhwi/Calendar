@@ -4,6 +4,7 @@
   height: 45rem;
   background-color: #c99fde;
   overflow: hidden;
+  position: relative;
 }
 
 .todo_header {
@@ -60,7 +61,7 @@
 
 .list_item {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   button {
     border: none;
     background-color: inherit;
@@ -75,4 +76,11 @@
   box-shadow: 0 4px 8px #d899d8;
   padding: 0.9rem 1.2rem;
   font-size: 1.2rem;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }

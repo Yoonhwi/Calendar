@@ -11,7 +11,7 @@ export const userRoutes = (app: Express, conn: Pool) => {
     console.log("userRoutes:", req.body);
     if (!req.body || isIncludeUndefined(req.body)) return returnBadRequest(res);
     const response = await createUser(conn, req.body);
-    res.status(response.code).json(response);
+    return res.status(response.code).json(response);
   });
 
   app.get("/user/login", async (req, res) => {

@@ -3,4 +3,5 @@ export enum ApiRoutes {
   Token = "/token",
   Logout = "/logout",
   Todo = "/todo",
+  Count = "/todo/count",
 }

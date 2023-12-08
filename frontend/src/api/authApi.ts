@@ -12,7 +12,7 @@ export const authApi = (token: string) => {
     (res) => res,
     (err) => {
       if (err.response.status === 401) {
-        console.log("401"); //토큰만료 처리해줘야함
+        //토큰만료처리
       }
     }
   );
