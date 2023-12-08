@@ -70,7 +70,11 @@ export const Calendar = () => {
                   }
                 : {}
             }
-            clickedDate={onDate}
+            clickedDate={onDate?.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+            })}
           />
         </CSSTransition>
       ) : null}

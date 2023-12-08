@@ -8,14 +8,16 @@ export const postTodoList: QueriesFunctionWithBody<PostTodoListProps> = async (
   conn,
   props
 ) => {
-  const { text, date, writer } = props;
+  const { text, date, writer } = props.params;
+  console.log(text, date, writer);
   try {
     const result = await conn.execute(
-      "INSERT INTO todo_list (text, data, writer) VALUES (?,?,?)",
+      "INSERT INTO todolist (text, date, writer) VALUES (?,?,?)",
       [text, date, writer]
     );
     return makeSuccessResponse(result);
-  } catch {
+  } catch (err) {
+    console.log(err);
     return DB_QUERY_ERROR;
   }
 };

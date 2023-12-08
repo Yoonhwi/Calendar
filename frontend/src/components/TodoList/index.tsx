@@ -2,13 +2,12 @@ import { ApiRoutes } from "@/constants/routes";
 import { Divier } from "../Divider";
 import { Pagination } from "../Pagination";
 import Styles from "./index.module.scss";
-import React, { useEffect, useMemo, useState } from "react";
-import { getFetch, useGet } from "@/api/apis";
-import { UseQueryResult } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { getFetch, useGet, usePost } from "@/api/apis";
 
 interface TodoListProps {
   style: React.CSSProperties;
-  clickedDate: Date | undefined;
+  clickedDate: string | undefined;
 }
 
 interface ApiResponse {
@@ -16,6 +15,14 @@ interface ApiResponse {
   email: string;
   iat: number;
   exp: number;
+}
+
+interface TodoDataProps {
+  id: number;
+  text: string;
+  isDone: boolean;
+  date: string;
+  writer: number;
 }
 
 const DATA = [
@@ -58,34 +65,36 @@ const DATA = [
 ];
 
 const TodoList = ({ style, clickedDate }: TodoListProps) => {
-  const [inputTodoList, setInputTodoList] = useState("");
-  const [userData, setUserData] = useState({
-    email: "",
-    id: 0,
+  const [inputTodoList, setInputTodoList] = useState(""); //입력받을 todolist
+  const [userData, setUserData] = useState({ email: "", id: 0 }); //필요한 유저정보를 저장
+  const [todoData, setTodoData] = useState<TodoDataProps[]>(); //해당 유저와 날짜에맞는 todolist
+
+  const { mutate, isSuccess } = usePost(ApiRoutes.Todo, {
+    //post요청
+    writer: userData.id,
+    text: inputTodoList,
+    date: clickedDate,
   });
 
   const { data } = useGet(
-    //user 정보
+    //accessToken을 디코딩하여 user정보를 가져옵니다.
     ApiRoutes.Token,
     () => getFetch({ url: ApiRoutes.Token }),
     { enabled: true }
   );
-  console.log(data);
 
   useEffect(() => {
+    // user정보를 가져와 필요한 정보를 userData에 저장합니다.
     if (!data) return;
     const dataExtendId = data?.data as ApiResponse;
     setUserData({ email: dataExtendId.email, id: dataExtendId.id });
   }, [data]);
-  //writer = userData.id , text = inputTodoList, date = clickedDate
 
-  const numericDate = clickedDate?.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  });
-
-  console.log(numericDate);
+  useEffect(() => {
+    //post 가 성공하여 isSuccess가 true가 된다면 inputList를 초기화합니다.
+    if (!isSuccess) return;
+    setInputTodoList("");
+  }, [isSuccess]);
 
   return (
     <section style={style} className={Styles.todolist_container}>
@@ -97,9 +106,10 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
             className={Styles.input_field}
             maxLength={20}
             onChange={(e) => setInputTodoList(e.target.value)}
+            value={inputTodoList}
           />
         </div>
-        <button onClick={() => console.log(inputTodoList)}>✔</button>
+        <button onClick={mutate}>✔</button>
       </div>
       <Divier style={{ color: "#fff", width: "95%", height: "2rem" }} />
       <div className={Styles.list_container}>

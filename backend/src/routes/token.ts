@@ -1,6 +1,7 @@
 import { Express } from "express";
 import { Pool } from "mysql2/promise";
 import { decodeToken } from "../utils/jwt";
+
 export const tokenRoutes = (app: Express, conn: Pool) => {
   app.get("/token", (req, res) => {
     const { accessToken } = req.cookies;

@@ -2,6 +2,7 @@ import DefaultAxiosService from "@/service/DefaultAxiosService";
 import {
   QueryFunctionContext,
   UseMutationOptions,
+  UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
   useMutation,
@@ -73,11 +74,13 @@ export const useGet = (
 export const usePost = (
   url: string,
   params?: object,
-  options?: UseMutationOptions
-) => {
-  useMutation({
+  options?: queryOptions
+): UseMutationResult => {
+  return useMutation({
+    mutationKey: [url, params],
     mutationFn: () => {
       return DefaultAxiosService.instance.post(url, { params });
     },
+    ...options,
   });
 };

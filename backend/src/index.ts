@@ -7,7 +7,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { tokenRoutes } from "./routes/token";
-import { todoRoutes } from "./routes/todo copy";
+import { todoRoutes } from "./routes/todo";
 
 dotenv.config();
 
@@ -23,6 +23,7 @@ const PORT = 8000;
 
 connectDB((pool) => {
   console.log("DB Connected");
+
   const app = express();
 
   app.use(bodyParser.json());
