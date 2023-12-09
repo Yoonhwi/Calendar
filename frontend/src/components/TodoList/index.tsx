@@ -3,8 +3,15 @@ import { Divier } from "../Divider";
 import { Pagination } from "../Pagination";
 import Styles from "./index.module.scss";
 import React, { useEffect, useMemo, useState } from "react";
-import { getFetch, useGet, useGetWithParams, usePost } from "@/api/apis";
+import {
+  getFetch,
+  useDeleteTodoList,
+  useGet,
+  useGetWithParams,
+  usePost,
+} from "@/api/apis";
 import { getCountAndList } from "@/api/getCountAndList";
+import { ShowTodoList } from "./ShowTodoList";
 
 interface TodoListProps {
   style: React.CSSProperties;
@@ -18,7 +25,7 @@ interface ApiResponse {
   exp: number;
 }
 
-interface TodoDataProps {
+export interface TodoDataProps {
   id: number;
   text: string;
   isDone: boolean;
@@ -69,7 +76,11 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
   const [inputTodoList, setInputTodoList] = useState(""); //입력받을 todolist
   const [userData, setUserData] = useState({ email: "", id: 0 }); //필요한 유저정보를 저장
   const [todoData, setTodoData] = useState<TodoDataProps[]>(); //해당 유저와 날짜에맞는 todolist
+
   const [page, setPage] = useState(1);
+
+  const { mutate: deleteMutate, isSuccess: deleteSuccess } =
+    useDeleteTodoList();
 
   const { mutate, isSuccess } = usePost(ApiRoutes.Todo, {
     //post요청
@@ -117,9 +128,17 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
     if (!isSuccess) return;
     setInputTodoList("");
     getCountAndList(refetch, refetchCount, setTodoData);
-  }, [isSuccess, refetch, refetchCount]);
+    console.log(todoData);
+  }, [isSuccess, refetch, refetchCount, todoData]);
 
   useEffect(() => {
+    //delete가 성공하여 deleteSuccess가 true가 된다면 todolist를 다시 가져옵니다.
+    if (!deleteSuccess) return;
+    getCountAndList(refetch, refetchCount, setTodoData);
+  }, [deleteSuccess, refetch, refetchCount]);
+
+  useEffect(() => {
+    console.log(page);
     if (!userData.id) return;
     getCountAndList(refetch, refetchCount, setTodoData);
   }, [refetch, page, userData.id, clickedDate, refetchCount]);
@@ -140,24 +159,21 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
         <button onClick={mutate}>✔</button>
       </div>
       <Divier style={{ color: "#fff", width: "95%", height: "2rem" }} />
-      <div className={Styles.list_container}>
-        {todoData && todoData.length > 0 ? (
-          todoData.map((v) => {
-            return (
-              <div className={Styles.list_item} key={`todoList_${v.id}`}>
-                <div className={Styles.list_content}>{v.text}</div>
-                <button>✏️</button>
-                <button>🗑️</button>
-                <input type="checkbox" checked={v.isDone} />
-              </div>
-            );
-          })
-        ) : (
-          <div>데이터없음</div>
-        )}
-      </div>
+      <ShowTodoList
+        todoData={todoData}
+        deleteMutate={deleteMutate}
+        setTodoData={setTodoData}
+        dataForFetch={{ page, writer: userData.id, date: clickedDate }}
+      />
       <div className={Styles.pagination}>
-        {count ? <Pagination count={count} set={setPage} /> : null}
+        {count ? (
+          <Pagination
+            total={count}
+            setPage={setPage}
+            currentPage={page}
+            clicked={clickedDate}
+          />
+        ) : null}
       </div>
     </section>
   );

@@ -3,7 +3,13 @@ import { Pool } from "mysql2/promise";
 import { RequestWithBody } from "../types/request";
 import { isIncludeUndefined } from "../utils/request";
 import { returnBadRequest } from "../utils/response";
-import { getCountPage, getTodoList, postTodoList } from "../queries/todo";
+import {
+  deleteTodoList,
+  getCountPage,
+  getTodoList,
+  postTodoList,
+  updateTodoList,
+} from "../queries/todo";
 
 export interface PostTodoListProps {
   params: {
@@ -22,6 +28,15 @@ export interface GetTodoListProps {
 export interface GetCountpageProps {
   writer: number;
   date: string;
+}
+
+export interface DeleteTodoListProps {
+  id: number;
+}
+
+export interface UpdateTodoListProps {
+  id: number;
+  text: string;
 }
 
 export const todoRoutes = (app: Express, conn: Pool) => {
@@ -57,4 +72,27 @@ export const todoRoutes = (app: Express, conn: Pool) => {
     const response = await postTodoList(conn, req.body);
     return res.status(response.code).json(response.message);
   });
+
+  app.delete("/todo/:id", async (req, res) => {
+    if (!req.params) return returnBadRequest(res);
+    const { id } = req.params;
+    const response = await deleteTodoList(conn, { id: Number(id) });
+    return res.status(response.code).json(response.message);
+  });
+
+  app.put(
+    "/todo/:id",
+    async (req: RequestWithBody<UpdateTodoListProps>, res) => {
+      if (!req.params || !req.body) return returnBadRequest(res);
+      const { id } = req.params;
+      console.log("req.body", req.body);
+      console.log("id", id);
+
+      const response = await updateTodoList(conn, {
+        id: Number(id),
+        text: req.body.text,
+      });
+      return res.status(response.code).json(response.message);
+    }
+  );
 };

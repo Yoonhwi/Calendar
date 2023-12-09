@@ -3,6 +3,8 @@ import {
   PostTodoListProps,
   GetTodoListProps,
   GetCountpageProps,
+  DeleteTodoListProps,
+  UpdateTodoListProps,
 } from "../routes/todo";
 import { QueriesFunctionWithBody } from "../types/queries";
 import { makeSuccessResponse } from "../utils/response";
@@ -55,6 +57,34 @@ export const getCountPage: QueriesFunctionWithBody<GetCountpageProps> = async (
       `SELECT COUNT(*) as count FROM todolist WHERE writer = ${writer} AND date = "${date}"`
     );
     return makeSuccessResponse(result[0]);
+  } catch (err) {
+    console.log(err);
+    return DB_QUERY_ERROR;
+  }
+};
+
+export const deleteTodoList: QueriesFunctionWithBody<
+  DeleteTodoListProps
+> = async (conn, props) => {
+  const { id } = props;
+  try {
+    const result = await conn.execute(`DELETE FROM todolist WHERE id = ${id}`);
+    return makeSuccessResponse(result);
+  } catch (err) {
+    console.log(err);
+    return DB_QUERY_ERROR;
+  }
+};
+
+export const updateTodoList: QueriesFunctionWithBody<
+  UpdateTodoListProps
+> = async (conn, props) => {
+  const { id, text } = props;
+  try {
+    const result = await conn.execute(
+      `UPDATE todolist SET text = "${text}" WHERE id = ${id}`
+    );
+    return makeSuccessResponse(result);
   } catch (err) {
     console.log(err);
     return DB_QUERY_ERROR;

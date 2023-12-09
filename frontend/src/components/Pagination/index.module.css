@@ -7,3 +7,13 @@
   color: #fff;
   font-weight: bold;
 }
+
+.active_btn {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.none_btn {
+  display: none;
+}

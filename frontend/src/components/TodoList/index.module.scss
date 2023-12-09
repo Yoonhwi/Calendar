@@ -51,33 +51,6 @@
   font-size: 1rem;
 }
 
-.list_container {
-  padding: 2rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.list_item {
-  display: flex;
-  gap: 1rem;
-  button {
-    border: none;
-    background-color: inherit;
-  }
-}
-
-.list_content {
-  width: 60%;
-  background-color: #fff;
-  border-radius: 16px;
-  border: 1px solid #d48ad4;
-  box-shadow: 0 4px 8px #d899d8;
-  padding: 0.9rem 1.2rem;
-  font-size: 1.2rem;
-}
-
 .pagination {
   position: absolute;
   bottom: 0;

@@ -83,3 +83,23 @@ export const usePost = (
     ...options,
   });
 };
+
+export const useDeleteTodoList = (options?: queryOptions) => {
+  return useMutation({
+    mutationKey: ["/delete/todo"],
+    mutationFn: (id: number) => {
+      return DefaultAxiosService.instance.delete(`/todo/${id}`);
+    },
+    ...options,
+  });
+};
+
+export const useUpdateTodoList = (options?: queryOptions) => {
+  return useMutation({
+    mutationKey: ["/update/todo"],
+    mutationFn: ({ id, text }: { id: number; text: string }) => {
+      return DefaultAxiosService.instance.put(`/todo/${id}`, { text });
+    },
+    ...options,
+  });
+};
