@@ -24,3 +24,12 @@
   padding: 0.9rem 1.2rem;
   font-size: 1.2rem;
 }
+
+.list_item {
+  button {
+    &:hover {
+      cursor: pointer;
+      scale: 1.2;
+    }
+  }
+}

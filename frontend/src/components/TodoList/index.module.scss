@@ -24,6 +24,11 @@
     background-color: inherit;
     border: none;
     font-weight: bold;
+    &:hover {
+      cursor: pointer;
+      color: #b652b6;
+      scale: 1.2;
+    }
   }
 }
 

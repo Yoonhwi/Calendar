@@ -39,6 +39,10 @@ export const ShowTodoList = ({
     dataForFetch
   );
 
+  const onChangeIsDoneHandler = (id: number, isDone: boolean) => {
+    //해당 id의 isDone을 반대로 바꿔줍니다.
+  };
+
   const onClickSuccessHandler = (id: number) => {
     mutate({ id, text: modify.find((item) => item.id === id)?.text! });
     setModify((prev) => prev.filter((v) => v.id !== id));
@@ -88,8 +92,17 @@ export const ShowTodoList = ({
                   ✏️
                 </button>
               )}
-              <button onClick={() => deleteMutate(v.id)}>🗑️</button>
-              <input type="checkbox" />
+              <button
+                onClick={() => deleteMutate(v.id)}
+                className={Styles.modifiy_btn}
+              >
+                🗑️
+              </button>
+              <input
+                type="checkbox"
+                checked={v.isDone}
+                onChange={() => onChangeIsDoneHandler(v.id, v.isDone)}
+              />
             </div>
           );
         })
