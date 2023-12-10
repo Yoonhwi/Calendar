@@ -90,3 +90,19 @@ export const updateTodoList: QueriesFunctionWithBody<
     return DB_QUERY_ERROR;
   }
 };
+
+export const updateIsDone: QueriesFunctionWithBody<
+  UpdateTodoListProps
+> = async (conn, props) => {
+  const { id, isDone } = props;
+  const booleanNum = isDone ? 0 : 1;
+  try {
+    const result = await conn.execute(
+      `UPDATE todolist SET isDone = ${booleanNum} WHERE id = ${id}`
+    );
+    return makeSuccessResponse(result);
+  } catch (err) {
+    console.log(err);
+    return DB_QUERY_ERROR;
+  }
+};

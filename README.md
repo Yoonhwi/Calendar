@@ -9,9 +9,3 @@ Calneder & TodoList
 
 React-Query의 다양한 기능을 활용하여<br/>
 데이터를 효율적으로 관리하는 방법에 대해 연구합니다.
-
-### 추가목표
-
-SEO의 향상을 위해 title , meta 태그 추가.<br/>
-https 도입.<br/>
-로그인인증 JWT방식 사용.<br/><br/>

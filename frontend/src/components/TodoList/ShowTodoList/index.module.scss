@@ -1,12 +1,26 @@
 .list_container {
-  padding: 2rem;
   width: 100%;
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 }
 
 .list_item {
+  width: 90%;
+  display: flex;
+  gap: 1rem;
+  button {
+    border: none;
+    background-color: inherit;
+  }
+}
+
+.done_list_item {
+  width: 90%;
+  opacity: 0.5;
   display: flex;
   gap: 1rem;
   button {
@@ -16,7 +30,7 @@
 }
 
 .list_content {
-  width: 60%;
+  width: 100%;
   background-color: #fff;
   border-radius: 16px;
   border: 1px solid #d48ad4;

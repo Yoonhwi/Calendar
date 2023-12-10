@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { TodoDataProps } from "..";
 import Styles from "./index.module.scss";
-import { getFetch, useGetWithParams, useUpdateTodoList } from "@/api/apis";
+import {
+  getFetch,
+  useGetWithParams,
+  useUpdateIsDone,
+  useUpdateTodoList,
+} from "@/api/apis";
 import { ApiRoutes } from "@/constants/routes";
+import { NoData } from "@/components/NoData";
 
 interface ShowTodoListProps {
   todoData: TodoDataProps[] | undefined;
@@ -28,6 +34,8 @@ export const ShowTodoList = ({
   const [modify, setModify] = useState<ModifyArrayProps[]>([]);
 
   const { mutate, isSuccess } = useUpdateTodoList();
+  const { mutate: isDoneMutate, isSuccess: isDoneUpdateSuccess } =
+    useUpdateIsDone();
   const { refetch } = useGetWithParams(
     //page별 데이터가져오기
     ApiRoutes.Todo,
@@ -39,10 +47,6 @@ export const ShowTodoList = ({
     dataForFetch
   );
 
-  const onChangeIsDoneHandler = (id: number, isDone: boolean) => {
-    //해당 id의 isDone을 반대로 바꿔줍니다.
-  };
-
   const onClickSuccessHandler = (id: number) => {
     mutate({ id, text: modify.find((item) => item.id === id)?.text! });
     setModify((prev) => prev.filter((v) => v.id !== id));
@@ -53,16 +57,19 @@ export const ShowTodoList = ({
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
+    if (!isSuccess && !isDoneUpdateSuccess) return;
     refetch().then((res) => setTodoData(res.data));
-  }, [isSuccess, refetch, setTodoData]);
+  }, [isDoneUpdateSuccess, isSuccess, refetch, setTodoData]);
 
   return (
     <div className={Styles.list_container}>
       {todoData && todoData.length > 0 ? (
         todoData.map((v) => {
           return (
-            <div className={Styles.list_item} key={`todoList_${v.id}`}>
+            <div
+              className={v.isDone ? Styles.done_list_item : Styles.list_item}
+              key={`todoList_${v.id}`}
+            >
               {isIdInModify(v.id) ? (
                 <input
                   value={modify.find((item) => item.id === v.id)?.text}
@@ -101,13 +108,13 @@ export const ShowTodoList = ({
               <input
                 type="checkbox"
                 checked={v.isDone}
-                onChange={() => onChangeIsDoneHandler(v.id, v.isDone)}
+                onChange={() => isDoneMutate({ id: v.id, isDone: v.isDone })}
               />
             </div>
           );
         })
       ) : (
-        <div>데이터없음</div>
+        <NoData />
       )}
     </div>
   );

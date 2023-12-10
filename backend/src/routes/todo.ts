@@ -8,6 +8,7 @@ import {
   getCountPage,
   getTodoList,
   postTodoList,
+  updateIsDone,
   updateTodoList,
 } from "../queries/todo";
 
@@ -36,7 +37,8 @@ export interface DeleteTodoListProps {
 
 export interface UpdateTodoListProps {
   id: number;
-  text: string;
+  text?: string;
+  isDone?: boolean;
 }
 
 export const todoRoutes = (app: Express, conn: Pool) => {
@@ -85,14 +87,28 @@ export const todoRoutes = (app: Express, conn: Pool) => {
     async (req: RequestWithBody<UpdateTodoListProps>, res) => {
       if (!req.params || !req.body) return returnBadRequest(res);
       const { id } = req.params;
-      console.log("req.body", req.body);
-      console.log("id", id);
 
-      const response = await updateTodoList(conn, {
-        id: Number(id),
-        text: req.body.text,
-      });
-      return res.status(response.code).json(response.message);
+      if (req.body.text) {
+        console.log("text수정");
+        //req.body에 text가 있다면,해당코드
+        console.log("req.body", req.body);
+        console.log("id", id);
+
+        const response = await updateTodoList(conn, {
+          id: Number(id),
+          text: req.body.text,
+        });
+        return res.status(response.code).json(response.message);
+      }
+      if (req.body.isDone != undefined) {
+        console.log(req.body);
+        console.log(id);
+        const response = await updateIsDone(conn, {
+          id: Number(id),
+          isDone: req.body.isDone,
+        });
+        return res.status(response.code).json(response.message);
+      }
     }
   );
 };

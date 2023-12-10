@@ -103,3 +103,13 @@ export const useUpdateTodoList = (options?: queryOptions) => {
     ...options,
   });
 };
+
+export const useUpdateIsDone = (options?: queryOptions) => {
+  return useMutation({
+    mutationKey: ["/update/todo/isDone"],
+    mutationFn: ({ id, isDone }: { id: number; isDone: boolean }) => {
+      return DefaultAxiosService.instance.put(`/todo/${id}`, { isDone });
+    },
+    ...options,
+  });
+};
