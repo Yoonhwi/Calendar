@@ -12,4 +12,4 @@ React-Query의 다양한 기능을 활용하여<br/>
 
 ### 영상
 
-<img src="https://github.com/Yoonhwi/Calendar/issues/1#issue-2036009508.gif"/>
+<img src="![GOMCAM 20231211_1954380696](https://github.com/Yoonhwi/Calendar/assets/123847036/3ee85216-aa30-4a69-9840-7ea51a4515a6)"/>
