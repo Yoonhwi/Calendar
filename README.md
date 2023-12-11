@@ -12,4 +12,4 @@ React-Query의 다양한 기능을 활용하여<br/>
 
 ### 영상
 
-![Introduce Calendar](https://github.com/Yoonhwi/Calendar/assets/123847036/1bbffbf4-a1ee-4927-ab3d-62f9916b774f)
+![Introduce Calendar](https://github.com/Yoonhwi/Calendar/assets/123847036/cf613543-08c3-4fc4-88a2-38c2f7afccbf)
