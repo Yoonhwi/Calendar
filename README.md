@@ -9,3 +9,7 @@ Calneder & TodoList
 
 React-Query의 다양한 기능을 활용하여<br/>
 데이터를 효율적으로 관리하는 방법에 대해 연구합니다.
+
+### 영상
+
+<img src="https://github.com/Yoonhwi/Calendar/issues/1#issue-2036009508"/>
