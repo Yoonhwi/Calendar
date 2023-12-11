@@ -1,8 +1,11 @@
+@import "src/styles/mixin.module.scss";
+
 .controller_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
+  @include center;
+  @include buttonHoverCorsor;
+  @include noneBtnStyle;
+  position: relative;
+  gap: 1.5rem;
   font-size: 1.5rem;
   background: #ff416c;
   background: -webkit-linear-gradient(to right, #7a4b92, rgb(171, 127, 180));
@@ -10,18 +13,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #ffffff;
+  color: $white;
   height: 12%;
-
   button {
     color: #ffffff;
     font-size: 1.8rem;
     font-weight: bold;
-    background-color: transparent;
-    border: none;
-    &:hover {
-      cursor: pointer;
-    }
     &:active {
       scale: 1.2;
     }
@@ -30,7 +27,7 @@
 
 .view_date {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
@@ -42,4 +39,13 @@
     display: flex;
     gap: 1rem;
   }
+}
+
+.extend_btn {
+  position: absolute;
+  right: 0;
+}
+
+.arrow_btn {
+  padding-top: 5px;
 }

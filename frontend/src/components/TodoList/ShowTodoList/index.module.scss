@@ -1,37 +1,38 @@
+@import "src/styles/mixin.module.scss";
+
+@mixin listButtonStyle() {
+  button {
+    border: none;
+    background-color: inherit;
+  }
+}
+
 .list_container {
+  @include center;
   width: 100%;
   padding-top: 2rem;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 1rem;
 }
 
 .list_item {
+  @include listButtonStyle;
   width: 90%;
   display: flex;
   gap: 1rem;
-  button {
-    border: none;
-    background-color: inherit;
-  }
 }
 
 .done_list_item {
+  @include listButtonStyle;
   width: 90%;
   opacity: 0.5;
   display: flex;
   gap: 1rem;
-  button {
-    border: none;
-    background-color: inherit;
-  }
 }
 
 .list_content {
   width: 100%;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 16px;
   border: 1px solid #d48ad4;
   box-shadow: 0 4px 8px #d899d8;

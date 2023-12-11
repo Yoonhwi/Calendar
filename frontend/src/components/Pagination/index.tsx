@@ -1,4 +1,4 @@
-import Styles from "./index.module.css";
+import Styles from "./index.module.scss";
 import { useEffect, useState } from "react";
 
 interface PaginationProps {
@@ -60,29 +60,31 @@ export const Pagination = ({
   }, [btnPage, currentPage, slicePage, clicked]);
   return (
     <div className={Styles.page_container}>
-      <span
+      <button
         className={btnPage === 1 ? Styles.none_btn : ""}
         onClick={() => onClickPrevHandler()}
       >
         {"<"}
-      </span>
+      </button>
       {pageArr.slice(slicePage, slicePage + CUTPAGE).map((v) => {
         return (
-          <span
+          <button
             key={v}
             onClick={() => setPage(v)}
-            className={v === currentPage ? Styles.active_btn : ""}
+            className={
+              v === currentPage ? Styles.active_btn : Styles.inactive_btn
+            }
           >
             {v}
-          </span>
+          </button>
         );
       })}
-      <span
+      <button
         className={pageArr.length / CUTPAGE <= btnPage ? Styles.none_btn : ""}
         onClick={() => onClickNextHandler()}
       >
         {">"}
-      </span>
+      </button>
     </div>
   );
 };

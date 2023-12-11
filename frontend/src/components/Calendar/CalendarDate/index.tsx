@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Styles from "./index.module.css";
+import Styles from "./index.module.scss";
 import { addDays } from "@/utilities/addDays";
 
 interface CalendarDateProp {

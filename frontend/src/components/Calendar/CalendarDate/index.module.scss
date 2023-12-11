@@ -1,3 +1,5 @@
+@import "/src/styles/mixin.module.scss";
+
 .date_container {
   width: 100%;
   height: 90%;
@@ -14,9 +16,7 @@
   font-weight: 800;
   font-size: 1.2rem;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include center;
   border-radius: 8px;
   box-sizing: border-box;
   transition: background-color 0.3s, color 0.3s;
@@ -25,9 +25,10 @@
 
 .date:hover {
   background-color: #b082c6;
-  color: #fff;
+  color: $white;
   height: 100%;
   transition: none;
+  cursor: pointer;
 }
 
 .date:active {
@@ -35,14 +36,12 @@
 }
 
 .clicked_date {
-  color: #fff;
+  @include center;
+  color: $white;
   background-color: #42095c;
   font-weight: 800;
   font-size: 1.2rem;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 8px;
   box-sizing: border-box;
   height: 100%;

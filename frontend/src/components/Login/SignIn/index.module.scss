@@ -1,3 +1,5 @@
+@import "src/styles/mixin.module.scss";
+
 .signin_container {
   position: relative;
   width: 50%;
@@ -6,17 +8,14 @@
 }
 
 .form_container {
+  @include center;
+  @include centerBoxStyle;
   width: 100%;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
   flex-direction: column;
-  align-items: center;
 
   input {
-    background-color: #ffffff;
+    background-color: $white;
     border: none;
     padding: 1.2rem 1.5rem;
     margin: 0.8rem 0;

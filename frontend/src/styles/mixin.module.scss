@@ -23,3 +23,24 @@ $white: #fff;
   justify-content: center;
   align-items: center;
 }
+
+@mixin buttonHoverCorsor() {
+  button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@mixin centerBoxStyle() {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin noneBtnStyle() {
+  button {
+    border: 0;
+    background-color: inherit;
+  }
+}

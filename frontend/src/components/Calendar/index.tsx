@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CalendarController } from "./CalendarController";
 import { CalendarDate } from "./CalendarDate";
-import Styles from "./index.module.css";
+import Styles from "./index.module.scss";
 import { CalendarDayHead } from "./CalendarDayHead";
 import { useGetWidth } from "@/hooks/useGetWidth";
 import TodoList from "../TodoList";
@@ -9,8 +9,8 @@ import TodoList from "../TodoList";
 const { CSSTransition } = require("react-transition-group");
 
 export const Calendar = () => {
-  const [nowDate, setNowDate] = useState<Date>(new Date());
-  const [onDate, setOnDate] = useState<Date>();
+  const [nowDate, setNowDate] = useState<Date>(new Date()); //현재날짜
+  const [onDate, setOnDate] = useState<Date>(); // 클릭날짜
 
   const [mode, setMode] = useState(false);
   const [isShowTodo, setIsShowTodo] = useState(false);
@@ -35,7 +35,13 @@ export const Calendar = () => {
         className={Styles.calendar_container}
         style={containerStyle.style}
       >
-        <CalendarController date={nowDate} setDate={setNowDate} />
+        <CalendarController
+          date={nowDate}
+          setDate={setNowDate}
+          setMode={setMode}
+          setOnDate={setOnDate}
+          mode={mode}
+        />
         <div className={Styles.date_container}>
           <CalendarDayHead />
           <CalendarDate date={nowDate} clicked={onDate} set={setOnDate} />

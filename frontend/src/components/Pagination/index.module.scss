@@ -1,0 +1,26 @@
+@import "/src/styles/mixin.module.scss";
+
+.page_container {
+  @include buttonHoverCorsor;
+  @include center;
+  @include noneBtnStyle;
+  padding: 1rem;
+  gap: 1rem;
+  button {
+    font-size: 1.2rem;
+    color: $white;
+    font-weight: bold;
+  }
+}
+
+.active_btn {
+  scale: 1.2;
+}
+
+.inactive_btn {
+  opacity: 0.8;
+}
+
+.none_btn {
+  display: none;
+}
