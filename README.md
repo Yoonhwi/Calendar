@@ -12,4 +12,4 @@ React-Query의 다양한 기능을 활용하여<br/>
 
 ### 영상
 
-<img src="https://github.com/Yoonhwi/Calendar/issues/1#issue-2036009508"/>
+<img src="https://github.com/Yoonhwi/Calendar/issues/1#issue-2036009508.gif"/>
