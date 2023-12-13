@@ -25,15 +25,11 @@ export const userRoutes = (app: Express, conn: Pool) => {
       case "login success":
         const accessToken = getAccessToken(emailAsString, response.data.id);
         const refreshToken = getRefreshToken(emailAsString, response.data.id);
-        res.cookie("accessToken", accessToken, {
-          secure: false, //나중에 https 로 바꾸게되면 true로 수정
-          httpOnly: true,
-        });
         res.cookie("refreshToken", refreshToken, {
           secure: false,
           httpOnly: true,
         });
-        return res.status(200).json(response.data.message);
+        return res.status(200).json(accessToken);
       case "not match": //비밀번호가 틀렸을 때
         return res.status(401).json(response.data.message);
       case "none email": //이메일이 없을 때

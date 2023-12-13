@@ -4,8 +4,8 @@ import { decodeToken } from "../utils/jwt";
 
 export const tokenRoutes = (app: Express, conn: Pool) => {
   app.get("/token", (req, res) => {
-    const { accessToken } = req.cookies;
-    if (!accessToken || accessToken === " ") {
+    const accessToken = req.headers.authorization;
+    if (!accessToken || accessToken === "") {
       return res.status(401).json({ message: "None AccessToken" });
     }
     const decodedToken = decodeToken(accessToken);

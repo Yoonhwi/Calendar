@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getFetch, useGet, useGetWithParams } from "@/api/apis";
 import { ApiRoutes } from "@/constants/routes";
 import { useRouter } from "next/router";
+import DefaultAxiosService from "@/service/DefaultAxiosService";
 
 export const SignIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -34,6 +35,7 @@ export const SignIn = () => {
   const handlerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     refetch().then((res) => {
+      DefaultAxiosService.addHeaderToken(res.data);
       if (!res) return;
       refetchUserData();
     });
