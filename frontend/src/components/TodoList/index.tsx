@@ -33,45 +33,6 @@ export interface TodoDataProps {
   writer: number;
 }
 
-const DATA = [
-  {
-    id: 1,
-    content: "content",
-    date: "11/16/2023",
-    writer: 1,
-  },
-  {
-    id: 2,
-    content: "content",
-    date: "11/16/2023",
-    writer: 1,
-  },
-  {
-    id: 3,
-    content: "content",
-    date: "11/16/2023",
-    writer: 1,
-  },
-  {
-    id: 4,
-    content: "content",
-    date: "11/16/2023",
-    writer: 1,
-  },
-  {
-    id: 5,
-    content: "content",
-    date: "11/16/2023",
-    writer: 1,
-  },
-  {
-    id: 6,
-    content: "content",
-    date: "11/16/2023",
-    writer: 1,
-  },
-];
-
 const TodoList = ({ style, clickedDate }: TodoListProps) => {
   const [inputTodoList, setInputTodoList] = useState(""); //입력받을 todolist
   const [userData, setUserData] = useState({ email: "", id: 0 }); //필요한 유저정보를 저장
@@ -115,6 +76,7 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
   );
 
   useEffect(() => {
+    console.log(data);
     // user정보를 가져와 필요한 정보를 userData에 저장합니다.
     if (!data) return;
     // 유저정보가있다면 , 해당날짜에 맞는 todolist를 가져옵니다.

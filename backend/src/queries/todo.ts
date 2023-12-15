@@ -33,6 +33,7 @@ export const postTodoList: QueriesFunctionWithBody<PostTodoListProps> = async (
   conn,
   props
 ) => {
+  console.log(props.params);
   const { text, date, writer } = props.params;
   try {
     const result = await conn.execute(
