@@ -11,7 +11,7 @@ import {
 
 interface queryOptions {
   enabled?: boolean;
-  refetchOnMount?: boolean;
+  refetchOnMount?: boolean | "always";
   refetchOnReconnect?: boolean;
   retry?: boolean;
   retryDelay?: number;
@@ -64,7 +64,6 @@ export const useGet = (
   return useQuery({
     queryKey: [url],
     queryFn: fn,
-    retry: false,
     enabled: false,
     ...options,
   });

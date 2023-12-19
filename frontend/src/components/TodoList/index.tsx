@@ -43,21 +43,23 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
   const { mutate: deleteMutate, isSuccess: deleteSuccess } =
     useDeleteTodoList();
 
-  const { mutate, isSuccess } = usePost(ApiRoutes.Todo, {
-    //post요청
-    writer: userData.id,
-    text: inputTodoList,
-    date: clickedDate,
-  });
-
-  const { data } = useGet(
-    //accessToken을 디코딩하여 user정보를 가져옵니다.
-    ApiRoutes.Token,
-    () => getFetch({ url: ApiRoutes.Token }),
-    { enabled: true }
+  const { mutate: postMutate, isSuccess: postSuccess } = usePost(
+    ApiRoutes.Todo,
+    {
+      //post요청
+      writer: userData.id,
+      text: inputTodoList,
+      date: clickedDate,
+    }
   );
 
-  const { refetch } = useGetWithParams(
+  const { data, isSuccess: getTokenSuccess } = useGet(
+    //accessToken을 디코딩하여 user정보를 가져옵니다.
+    ApiRoutes.Token,
+    () => getFetch({ url: ApiRoutes.Token })
+  );
+
+  const { refetch: getTodoList } = useGetWithParams(
     //page별 데이터가져오기
     ApiRoutes.Todo,
     () =>
@@ -76,34 +78,34 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
   );
 
   useEffect(() => {
+    if (!getTokenSuccess) return;
     console.log(data);
     // user정보를 가져와 필요한 정보를 userData에 저장합니다.
-    if (!data) return;
     // 유저정보가있다면 , 해당날짜에 맞는 todolist를 가져옵니다.
     const dataExtendId = data?.data as ApiResponse;
     //post요청시 필요한 정보를 userData에 저장합니다.
     setUserData({ email: dataExtendId.email, id: dataExtendId.id });
-  }, [data, refetchCount]);
+  }, [data, refetchCount, getTokenSuccess]);
 
   useEffect(() => {
     //post 가 성공하여 isSuccess가 true가 된다면 inputList를 초기화합니다.
-    if (!isSuccess) return;
+    if (!postSuccess) return;
     setInputTodoList("");
-    getCountAndList(refetch, refetchCount, setTodoData);
+    getCountAndList(getTodoList, refetchCount, setTodoData);
     console.log(todoData);
-  }, [isSuccess, refetch, refetchCount, todoData]);
+  }, [postSuccess, getTodoList, refetchCount, todoData]);
 
   useEffect(() => {
     //delete가 성공하여 deleteSuccess가 true가 된다면 todolist를 다시 가져옵니다.
     if (!deleteSuccess) return;
-    getCountAndList(refetch, refetchCount, setTodoData);
-  }, [deleteSuccess, refetch, refetchCount]);
+    getCountAndList(getTodoList, refetchCount, setTodoData);
+  }, [deleteSuccess, getTodoList, refetchCount]);
 
   useEffect(() => {
     console.log(page);
     if (!userData.id) return;
-    getCountAndList(refetch, refetchCount, setTodoData);
-  }, [refetch, page, userData.id, clickedDate, refetchCount]);
+    getCountAndList(getTodoList, refetchCount, setTodoData);
+  }, [getTodoList, page, userData.id, clickedDate, refetchCount, data]);
 
   return (
     <section style={style} className={Styles.todolist_container}>
@@ -118,7 +120,7 @@ const TodoList = ({ style, clickedDate }: TodoListProps) => {
             value={inputTodoList}
           />
         </div>
-        <button onClick={mutate}>✔</button>
+        <button onClick={postMutate}>✔</button>
       </div>
       <Divier style={{ color: "#fff", width: "95%", height: "2rem" }} />
       <ShowTodoList

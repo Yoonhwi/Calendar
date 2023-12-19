@@ -8,14 +8,17 @@ interface DefaultLayoutProps {
 }
 
 const DefaultLayout = ({ children }: DefaultLayoutProps) => {
-  const { data } = useGet(ApiRoutes.Token, () =>
-    getFetch({ url: ApiRoutes.Token })
+  const { data } = useGet(
+    ApiRoutes.Token,
+    () => getFetch({ url: ApiRoutes.Token }),
+    {
+      enabled: true,
+    }
   );
   useEffect(() => {
     if (!data) return;
     if (!!data.data) {
-      console.log(data.data);
-      //여기서 해당 토큰을 보내면서 유저정보를 받아옴.
+      console.log("DefaultLayout", data.data);
     }
   }, [data]);
 

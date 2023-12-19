@@ -1,19 +1,22 @@
 import { ApiRoutes } from "@/constants/routes";
 import axios, { AxiosRequestConfig } from "axios";
-//현재 겪고있는 문제
-//새로고침시 header에 저장해둔 accesstoken이 사라지기때문에
-//token으로 get요청을 보낼때, 에러401이 반환되면 refreshtoken을 확인후
-//새로운 accesstoken을 발급받아 header에 저장함.
-//accesstoken을 발급받는 api는 저장x.
-//accesstoken이 필요했던 마지막요청을 다시 보내기위해
-//마지막요청을 저장해둠.
-//해당 과정에서 문제가 발생.
-//달력모드와 달력+todo모드라고 부르겠음.
-//달력모드에서 새로고침후 날짜를 클릭해 달력+todo모드로 전환시
-//해당유저에대한 todo리스트를 가져오는 api를 호출함.
-//하지만 해당 api는 accesstoken이 필요한 api이기때문에
-//token url로 get요청을 하게되고 에러 401이 반환되므로 마지막요청이 token url get요청이됨.
-//token url get요청후 원래의 todo리스트를 가져오는 api를 호출해야함.
+
+// 새로고침시 header에 저장해둔 accesstoken이 사라지기때문에
+// token으로 get요청을 보낼때, 에러401이 반환되면 refreshtoken을 확인후
+// 새로운 accesstoken을 발급받아 header에 저장함.
+// accesstoken을 발급받는 api는 저장x.
+// accesstoken이 필요했던 마지막요청을 다시 보내기위해
+// 마지막요청을 저장해둠.
+// 해당 과정에서 문제가 발생.
+// 달력모드와 달력+todo모드라고 부르겠음.
+// 달력모드에서 새로고침후 날짜를 클릭해 달력+todo모드로 전환시
+// 해당유저에대한 todo리스트를 가져오는 api를 호출함.
+// 하지만 해당 api는 accesstoken이 필요한 api이기때문에
+// token url로 get요청을 하게되고 에러 401이 반환되므로 마지막요청이 token url get요청이됨.
+// token url get요청후 원래의 todo리스트를 가져오는 api를 호출해야함.
+// DefaultLayout 에서 token을 가져오는 useQuery옵션에 enable : true 옵션을 넣어서 새로고침시
+// token값을 가져오게 변경해서 해결.
+
 class DefaultAxiosService {
   static instance = axios.create({
     baseURL: `http://${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_SERVER_PORT}`,
@@ -27,6 +30,7 @@ class DefaultAxiosService {
 DefaultAxiosService.instance.interceptors.request.use(
   //요청전 url이 access token이 아니고 마지막 요청이 없으면 마지막요청으로 저장
   (config) => {
+    console.log("config", config);
     if (
       config.url !== ApiRoutes.AccessToken &&
       !DefaultAxiosService.lastRequest
@@ -35,7 +39,10 @@ DefaultAxiosService.instance.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.log("err config:", error);
+    Promise.reject(error);
+  }
 );
 
 DefaultAxiosService.instance.interceptors.response.use(
